@@ -3,9 +3,14 @@ import pandas as pd
 
 app = Flask(__name__)
 
+
+data = pd.read_csv("data/stations.txt", skiprows=17)
+data = data[["STAID", "STANAME                                 "]]
+
+
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("home.html", data=data.to_html())
 
 @app.route("/api/v1/<station>/<date>")
 def about(station, date):
